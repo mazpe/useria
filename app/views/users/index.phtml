@@ -6,58 +6,43 @@
 
 <div class="page-header">
     <h1>
-        Search users
+         Users
     </h1>
     <p>
-        <?php echo $this->tag->linkTo(["users/new", "Create users"]) ?>
+        <?php echo $this->tag->linkTo(["users/new", "Create "]) ?> <br />
+        <?php echo $this->tag->linkTo(["users/search", "Search "]) ?>
     </p>
 </div>
 
 <?php echo $this->getContent() ?>
 
 <?php
-    echo $this->tag->form(
-        [
-            "users/search",
-            "autocomplete" => "off",
-            "class" => "form-horizontal"
-        ]
-    );
+
+if ($users->count() > 0) {
+    ?>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="3">Users quantity: <?php echo $users->count(); ?></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php foreach ($users as $user) { ?>
+            <tr>
+                <td><?php echo $user->id; ?></td>
+                <td><?php echo $user->name; ?></td>
+                <td><?php echo $user->email; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}
 ?>
-
-<div class="form-group">
-    <label for="fieldId" class="col-sm-2 control-label">Id</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textField(["id", "type" => "number", "class" => "form-control", "id" => "fieldId"]) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldName" class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textField(["name", "size" => 30, "class" => "form-control", "id" => "fieldName"]) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldUsername" class="col-sm-2 control-label">Username</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textField(["username", "size" => 30, "class" => "form-control", "id" => "fieldUsername"]) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldDescription" class="col-sm-2 control-label">Description</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textArea(["description", "cols" => 30, "rows" => 4, "class" => "form-control", "id" => "fieldDescription"]) ?>
-    </div>
-</div>
-
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
-    </div>
-</div>
-
-<?php echo $this->tag->endForm(); ?>

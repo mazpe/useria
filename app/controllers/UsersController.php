@@ -10,6 +10,15 @@ class UsersController extends ControllerBase
      * Index action
      */
     public function indexAction()
+    {   
+        $this->view->users = Users::find();
+
+    }
+
+    /**
+     * Search for users
+     */
+    public function searchAction() 
     {
         $this->persistent->parameters = null;
     }
@@ -17,7 +26,7 @@ class UsersController extends ControllerBase
     /**
      * Searches for users
      */
-    public function searchAction()
+    public function resultsAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
